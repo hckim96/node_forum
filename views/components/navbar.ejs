@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../stylesheets/style.css">
+
 <nav class="navbar navbar-light bg-light">
 </nav>
 
@@ -30,13 +32,27 @@
           <a class="nav-link disabled" href="#">Disabled</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <form class="form-inline my-2 my-lg-0 mr-5" method="get" action="/">
+        <input class="form-control mr-sm-2" type="q" placeholder="글 제목으로 검색..." aria-label="Search" name="q">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="">검색</button>
       </form>
       <% if (isLoggedIn) { %>
         <!-- <img src="..." alt="..." class="rounded-circle"> -->
-        <span class = "ml-2">welcome <%= userId %> </span>
+        <!-- <span class = "ml-2">welcome 
+          <a href="/profile/<%= userId %>" style="">
+          <%= userId %>
+          </a> 
+        </span> -->
+          <div class="mx-2"  style="max-width: 3rem;">
+            <a href="profile/<%=userId%>">
+              <img src="/asset/defaultProfile.png" class="img" alt="" >
+            </a>
+          </div>
+        <span class="font-bold font-italic pr-2">
+          <%= userId %>
+        </span>
+
+
         <a class="btn btn-outline-primary m-1" href="/logout">logout</a>
       <% } else {%>
         <a class="btn btn-outline-primary m-1" href="/login">Sign in</a>

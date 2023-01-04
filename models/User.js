@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
     trim    : true,
     required: true,
   },
+  description: {
+    type: String,
+  }
 },
 { // options,,
   timestamps: true // this will create createdAt, updatedAt fields

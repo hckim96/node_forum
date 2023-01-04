@@ -60,6 +60,16 @@ module.exports = function(passport) {
   });
 
 
+  router.get('/profile/:userId', function(req, res, next) {
+    const {userId} = req.params
+    User.findOne({id: userId}, (err, doc) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.render('profile', {user: doc, isLoggedIn: req.isAuthenticated(), userId: req.user?.id})
+      }
+    })    
+  });
 
   return router;
 };

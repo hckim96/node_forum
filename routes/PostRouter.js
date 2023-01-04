@@ -20,14 +20,16 @@ router.get('/write', isLoggedIn , (req, res) => {
 // get posts
 router.get('/post/:postId', (req, res) => {
 
-  Post.findOne({id: req.params.postId}).populate('author').exec((err, post) => {
-    if (err) {
-      console.log(`err: ${err}`)
-      res.redirect('/');
-    } else {
-      res.render('post', {post: post, isLoggedIn: req.isAuthenticated(), userId: req.user?.id})
-    }
-  })
+  Post.findOneAndUpdate({id: req.params.postId}, {$inc: {view: 1}}, {new: true})
+      .populate('author')
+      .exec( (err, post) => {
+        if (err) {
+          console.log(`err: ${err}`)
+          res.redirect('/');
+        } else {
+          res.render('post', {post: post, isLoggedIn: req.isAuthenticated(), userId: req.user?.id})
+        }
+  });
 })
 
 // post  // edit post that has postId

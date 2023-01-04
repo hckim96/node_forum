@@ -39,27 +39,40 @@
                 <img src="/asset/defaultProfile.png" title="" alt="">
               </div>
               <div class="media-body">
-                <label>
-                  <%= post.author.id %>
-                </label>
-                <span>
-                  <!-- <%= post.createdAt %> -->
-                  <%= moment(post.createdAt).format('llll') %>
-                  (
-                    <%= moment(post.createdAt).fromNow() %>
-                  )
-                </span>
+                <div class="row">
+
+                  <div class="col">
+                    <label>
+                      <%= post.author.id %>
+                    </label>
+                    <span>
+                      <!-- <%= post.createdAt %> -->
+                      <%= moment(post.createdAt).format('llll') %>
+                      (
+                        <%= moment(post.createdAt).fromNow() %>
+                      )
+                    </span>
+                  </div>
+                  <div class="col-md-auto">
+                    <span> 조회수 <%= post.view %> </span>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col">
+                    tmp
+                  </div>
+                    <% if (post.author.id == userId) { %>
+                      <a class="col-md-auto d-block btn btn-link" href="/edit/<%= post.id%>" style="">
+                        수정
+                      </a>
+                      <form class="col-md-auto" action="/post/<%=post.id%>?_method=DELETE" method="post"> 
+                        <button class="btn btn-link" type="submit" style="color: red;">
+                          삭제
+                        </button>
+                      </form>
+                  <% } %>
+                </div>
               </div>
-              <% if (post.author.id == userId) { %>
-                  <a class="btn btn-link" href="/edit/<%= post.id%>" style="">
-                    edit
-                  </a>
-                  <form action="/post/<%=post.id%>?_method=DELETE" method="post"> 
-                    <button class="btn btn-link" type="submit" style="color: red;">
-                      delete
-                    </button>
-                  </form>
-              <% } %>
             </div>
           </div>
 

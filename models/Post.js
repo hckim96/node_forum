@@ -18,6 +18,9 @@ const postSchema = new mongoose.Schema({
   id: {
     type : Number,
   }, 
+  view: {
+    type: Number,
+  },
 
   // createdAt,
   // updatedAt,

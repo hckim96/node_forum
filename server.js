@@ -16,8 +16,8 @@ function start_server() {
         ssl: true,
         sslValidate: false,
     });
-    
-    http.listen(PORT, function() {
+    // '0.0.0.0' to use IPv4
+    http.listen(PORT, '0.0.0.0', function() {
         console.log('listening on *:' + PORT);
     });
 }
