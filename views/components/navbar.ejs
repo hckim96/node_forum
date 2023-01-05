@@ -4,7 +4,7 @@
 </nav>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Navbar</a>
+    <a class="navbar-brand" href="/">홈</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -44,7 +44,7 @@
           </a> 
         </span> -->
           <div class="mx-2"  style="max-width: 3rem;">
-            <a href="profile/<%=userId%>">
+            <a href="/profile/<%=userId%>">
               <img src="/asset/defaultProfile.png" class="img" alt="" >
             </a>
           </div>
@@ -53,10 +53,10 @@
         </span>
 
 
-        <a class="btn btn-outline-primary m-1" href="/logout">logout</a>
+        <a class="btn btn-outline-primary m-1" href="/logout">로그아웃</a>
       <% } else {%>
-        <a class="btn btn-outline-primary m-1" href="/login">Sign in</a>
-        <a class="btn btn-outline-primary mr-1" href="/signup">Sign up</a>
+        <a class="btn btn-outline-primary m-1" href="/login">로그인</a>
+        <a class="btn btn-outline-primary mr-1" href="/signup">회원가입</a>
       <% }  %>
     </div>
   </nav>

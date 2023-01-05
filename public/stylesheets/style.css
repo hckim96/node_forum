@@ -1,5 +1,5 @@
 body {
-  padding: 2.5rem;
+  /* padding: 2.5rem; */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -46,7 +46,7 @@ input[type="password"] {
 
 
 
-body{margin-top:20px;}
+/* body{margin-top:20px;} */
 .blog-listing {
     padding-top: 30px;
     padding-bottom: 30px;

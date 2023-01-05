@@ -45,7 +45,11 @@ module.exports = function(passport) {
           }
         })
       } else {
-        req.flash('signupMessage', err.toString())
+        if (err.code == 11000) {
+          req.flash('signupMessage', '중복된 아이디 입니다.')
+        } else {
+          req.flash('signupMessage', err.toString())
+        }
         res.redirect(req.originalUrl);
       }
     })
