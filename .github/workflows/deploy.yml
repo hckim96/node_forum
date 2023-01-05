@@ -1,0 +1,44 @@
+name: Deploy to cloudtype
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Connect repository
+        uses: cloudtype-github-actions/connect@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          ghtoken: ${{ secrets.GHP_TOKEN }}
+      - name: Deploy
+        uses: cloudtype-github-actions/deploy@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          project: node-forum
+          repo: https://github.com/${{ github.repository }}.git
+          yaml: |-
+            name: node-forum
+            app: node@16
+            context:
+              git:
+                url: https://github.com/${{ github.repository }}.git
+                branch: main
+            options:
+              ports: 4500
+              git:
+                url: https://github.com/${{ github.repository }}.git
+                branch: main
+              nodeversion: 16
+              docbase: /dist
+              env:
+                - name: PORT
+                  value: ${{ secrets.PORT }}
+                - name: MONGO_URI
+                  value: ${{ secrets.MONGO_URI }}
+                - name: SESSION_SECRET
+                  value: ${{ secrets.SESSION_SECRET }}
+   
