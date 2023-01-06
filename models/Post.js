@@ -21,7 +21,10 @@ const postSchema = new mongoose.Schema({
   view: {
     type: Number,
   },
-
+  commentList: [{
+    type: mongoose.Types.ObjectId,
+    ref: 'Comment'
+  }]
   // createdAt,
   // updatedAt,
   // likes

@@ -37,6 +37,9 @@ router.get('/', (req, res) => {
           .limit(limit)
           .skip((page - 1) * limit)
           .populate('author')
+          .populate({
+            path: 'commentList',
+          })
           .sort('-createdAt')
           .exec((err, result) => {
             if (err) {

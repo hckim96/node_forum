@@ -20,18 +20,18 @@
 
 </head>
 
-<body>
+<body  class="mx-auto b-5" style="">
   <%- include('components/navbar.ejs') %>
 
-    <div class="row justify-content-center">
-      <div class="col-lg-9 m-15px-tb">
+  <div class="row justify-content-center" style="padding : 3% 5rem 0% 5rem; max-width: 1920px; margin: auto;">
+      <div class=" m-auto" style="width: 100%;">
         <article class="article">
           <div class="article-img">
             <!-- <img src="https://www.bootdey.com/image/800x350/87CEFA/000000" title="" alt=""> -->
           </div>
           <div class="article-title">
             <h6><a href="#">Lifestyle</a></h6>
-            <h2>
+            <h2 class="text-black">
               <%= post.title %>
             </h2>
             <div class="media">
@@ -59,7 +59,6 @@
                 </div>
                 <div class="row ">
                   <div class="col">
-                    tmp
                   </div>
                     <% if (post.author.id == userId) { %>
                       <a class="col-md-auto d-block btn btn-link" href="/edit/<%= post.id%>" style="">
@@ -92,7 +91,10 @@
                 <a href="#">Managment</a> -->
           </div>
         </article>
-        <div class="contact-form article-comment">
+
+
+
+        <!-- <div class="contact-form article-comment">
           <h4>Leave a Comment</h4>
           <form id="contact-form" method="POST">
             <div class="row">
@@ -119,7 +121,35 @@
               </div>
             </div>
           </form>
+        </div> -->
+
+        <!-- comment part -->
+        <div>
+          <div class="comment-write-part">
+            <% var commentCnt = post.commentList?.length ?? 0; 
+                if (post.commentList) 
+                  for (var comment of post.commentList) commentCnt += comment.commentList?.length ?? 0;
+            %>
+            <h4> <%=commentCnt%>개의 댓글</h4>
+            <form action="/comments" method="post">
+              <textarea class="w-100 p-2 font-large" placeholder="댓글을 작성하세요" style="height: 10rem;" name="body"></textarea>
+              <input hidden="" name="parentModel" value="Post">
+              <div class="d-flex justify-content-end my-1">
+                <button class="btn btn-primary" type="submit" name="parent" value="<%=post._id%>">댓글 작성</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="comment-list-part mb-5">
+            <% for( let index = 0; index < post.commentList.length; index++ ) { %>
+              <%- include('components/comment.ejs', {comment: post.commentList[index], idx: index}) %>
+            <% } %>
+          </div>
+
         </div>
+
+
+
       </div>
 
     </div>

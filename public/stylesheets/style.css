@@ -242,7 +242,7 @@ input[type="password"] {
   border-bottom: 1px solid #fc5356;
 }
 .article .article-title h2 {
-  color: #20247b;
+  color: black;
   font-weight: 600;
 }
 .article .article-title .media {

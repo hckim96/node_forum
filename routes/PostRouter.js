@@ -7,6 +7,7 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
+    req.session.redirectUrl = req.url;
     res.redirect('/login');
   }
 }
@@ -16,17 +17,26 @@ router.get('/write', isLoggedIn , (req, res) => {
 
 
 
-
 // get posts
 router.get('/post/:postId', (req, res) => {
 
   Post.findOneAndUpdate({id: req.params.postId}, {$inc: {view: 1}}, {new: true})
       .populate('author')
+      .populate(
+        {
+        path: 'commentList',
+        populate: [
+          {path: 'author'},
+          {path: 'commentList', populate: [{path: 'author'}, {path: 'parent'}]}
+        ]
+        }
+      )
       .exec( (err, post) => {
         if (err) {
           console.log(`err: ${err}`)
           res.redirect('/');
         } else {
+          console.log(post);
           res.render('post', {post: post, isLoggedIn: req.isAuthenticated(), userId: req.user?.id})
         }
   });

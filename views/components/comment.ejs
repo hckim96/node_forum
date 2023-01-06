@@ -1,0 +1,50 @@
+<style type="text/css">
+  .comment {
+    border-bottom: 1px solid #f1f3f5;
+
+  }
+</style>
+
+<div class="comment py-5">
+
+  <div class="comment-top-part" style="margin-bottom: 1.5rem;">
+    <div class="comment-profile-part d-flex flex-col">
+      <a><img class="" style="width: 3.5rem;" src="/asset/defaultProfile.png" alt=""></a>
+      <div class=" ml-2">
+        <strong>
+          <%=comment.author.id%>
+        </strong>
+        <div class="mt-1 text-muted" data-toggle="tooltip" title="<%= moment(comment.createdAt).format('llll') %>">
+          <%= moment(comment.createdAt).fromNow() %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comment-middle-part">
+    <p>
+      <%= comment.body %>
+    </p>
+  </div>
+  <div class="comment-bottom-part">
+    <button type="button" class="btn btn-link pl-0 pb-0" style="text-decoration: none;" data-toggle="collapse" data-target="#collapseExample<%=idx%>" aria-expanded="false" aria-controls="collapseExample">
+      <svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path fill="currentColor" d="M5.5 2.5h1v3h3v1h-3v3h-1v-3h-3v-1h3v-3z"></path><path fill="currentColor" fill-rule="evenodd" d="M1 0a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm10 1H1v10h10V1z" clip-rule="evenodd"></path></svg>
+      <span>
+        <% if (comment.commentList?.length > 0) { %>
+          <%= comment.commentList?.length%>개의 댓글
+        <% } else {%>
+          댓글 달기
+        <% }%>
+      </span>
+    </button>
+    <div class="collapse p-3 " style="background-color: #F8F9FA;" id="collapseExample<%=idx%>">
+
+      <!-- 대댓글 작성하기 -->
+      <%- include('nested-comment-write-part.ejs', {comment: comment}) %>
+
+      <!-- 대댓글 리스트 -->
+      <% for( let index = 0; index < comment.commentList.length; index++ ) { %>
+        <%- include('nested-comment-content-part.ejs', {comment: comment.commentList[index], idx: index}) %>
+      <% } %>
+    </div>
+  </div>
+</div>

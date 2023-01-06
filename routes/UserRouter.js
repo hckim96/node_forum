@@ -16,7 +16,7 @@ module.exports = function(passport) {
     const { id, password } = req.body;
 
     passport.authenticate('local-login', {
-      successRedirect: '/',
+      successRedirect: req.session.redirectUrl,
       failureRedirect: req.originalUrl,
       failureFlash: true,
     })(req, res, next);

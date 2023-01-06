@@ -1,0 +1,10 @@
+<div class="comment-write-part">
+  <h4><%= comment.commentList.length %>개의 댓글</h4>
+  <form action="/comments" method="post">
+    <textarea class="w-100 p-2 font-large" placeholder="댓글을 작성하세요" style="height: 10rem;" name="body"></textarea>
+    <input hidden="" name="parentModel" value="Comment">
+    <div class="d-flex justify-content-end my-1">
+      <button class="btn btn-primary" type="submit" name="parent" value="<%=comment._id%>">댓글 작성</button>
+    </div>
+  </form>
+</div>
