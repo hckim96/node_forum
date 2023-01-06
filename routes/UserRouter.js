@@ -32,12 +32,12 @@ module.exports = function(passport) {
 
     var user = new User(req.body);
     user.save((err, info) => {
-      console.log(`in save(),, err: ${err}, info: ${info}`);
+      console.log(`in user.save(): err: ${err}, info: ${info}`);
       if (!err) {
         // res.json({msg: "success"})
         req.login(info, (err) => {
           if (err) {
-            console.log(`req.login,,,, err:${err} `);
+            console.log(`req.login err:${err} `);
             // res.json({"err": err})
             next(err);
           } else {

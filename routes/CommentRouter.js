@@ -8,7 +8,7 @@ const Comment = require('../models/Comment')
 
 router.post('/comments', (req,res) => {
   const {parent, body, parentModel} = req.body;
-  console.log(parent, body, parentModel);
+  console.log(`[POST] /comments: write comment: ${body}, parent: ${parentModel} `)
 
   if (!req.isAuthenticated()) {
     req.session.redirectUrl = req.get('referer');

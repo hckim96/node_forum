@@ -33,10 +33,9 @@ router.get('/post/:postId', (req, res) => {
       )
       .exec( (err, post) => {
         if (err) {
-          console.log(`err: ${err}`)
           res.redirect('/');
         } else {
-          console.log(post);
+          console.log(`[GET] single post, ${req.params.postId}`);
           res.render('post', {post: post, isLoggedIn: req.isAuthenticated(), userId: req.user?.id})
         }
   });
@@ -55,7 +54,7 @@ router.post('/post/:postId', (req, res) => {
     if (err) {
       res.json(err);
     } else {
-      console.log('update succeded: ', resp);
+      console.log(f`[POST]  post update succeded: ${req.params.postId}`);
       res.redirect(`/post/${req.params.postId}`)
     }
   })
