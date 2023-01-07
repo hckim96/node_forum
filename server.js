@@ -18,6 +18,12 @@ function start_server() {
     });
     // '0.0.0.0' to use IPv4
     http.listen(PORT, '0.0.0.0', function() {
+        var httpx = require('http');
+        httpx.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
+            resp.on('data', function(ip) {
+            console.log("My public IP address is: " + ip);
+            });
+        });
         console.log('listening on *:' + PORT);
     });
 }
