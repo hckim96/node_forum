@@ -2,16 +2,20 @@ const express = require('express');
 const app = express()
 const passport = require('passport');
 const flash = require('connect-flash');
-const livereload = require('livereload')
-const livereloadMiddleware = require('connect-livereload')
-// 라이브 서버 설정
-const liveServer = livereload.createServer({
-  // 변경시 다시 로드할 파일 확장자들 설정
-  exts: ['html', 'css', 'ejs'],
-  debug: false,
-});
-liveServer.watch(__dirname);
-app.use(livereloadMiddleware());
+
+
+// const livereload = require('livereload')
+// const livereloadMiddleware = require('connect-livereload')
+// // 라이브 서버 설정
+// const liveServer = livereload.createServer({
+//   // 변경시 다시 로드할 파일 확장자들 설정
+//   exts: ['html', 'css', 'ejs'],
+//   debug: false,
+// });
+// liveServer.watch(__dirname);
+// app.use(livereloadMiddleware());
+
+
 
 // for delete or put method
 const methodOverride = require('method-override')
