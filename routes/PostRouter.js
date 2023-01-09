@@ -34,6 +34,9 @@ router.get('/post/:postId', (req, res) => {
       .exec( (err, post) => {
         if (err) {
           res.redirect('/');
+        } else if (!post) {
+          console.log(`post ${req.params.postId} not exists`)
+          res.json({"err": `post ${req.params.postId} not exists`})
         } else {
           console.log(`[GET] single post, ${req.params.postId}`);
           res.render('post', {post: post, isLoggedIn: req.isAuthenticated(), userId: req.user?.id})
@@ -68,8 +71,10 @@ router.delete('/post/:postId', (req, res) => {
     return;
   }
 
-  Post.findOneAndDelete({id: postId}, (err, doc, resp) => {
-    console.log("router.delete")
+  Post.findOneAndDelete({id: postId}).populate(
+
+  ).exec((err, doc, resp) => {
+    console.log("Post.findOneAndDelete")
     console.log(err, doc, resp);
     if (!err) {
       console.log('delete succeeded')

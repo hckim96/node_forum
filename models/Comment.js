@@ -23,6 +23,9 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ['Comment', 'Post']
+  },
+  deleted : {
+    type: Boolean
   }
 },
 { // options,,

@@ -1,0 +1,31 @@
+<div class="comment-profile-part d-flex justify-content-between">
+  <div class="d-flex">
+  <a href="/profile/<%=comment.deleted ? '알 수 없음' : comment.author.id%>"><img class="" style="width: 3.5rem;" src="/asset/defaultProfile.png" alt=""></a>
+  <div class=" ml-2">
+    <a href="/profile/<%=comment.deleted ? '알 수 없음' : comment.author.id%>" style="color: black;" >
+      <strong>
+        <%=comment.deleted ? '알 수 없음' : comment.author.id%>
+      </strong>
+    </a>
+    <div class="mt-1 text-muted" data-toggle="tooltip" title="<%= moment(comment.createdAt).format('llll') %>">
+      <%= moment(comment.createdAt).fromNow() %>
+    </div>
+  </div>
+  </div>
+  <div> 
+    <div class="comment-edit-delete d-flex">
+      <% if (comment.author.id == userId) { %>
+        <% if (!comment.deleted) {%>
+        <button class="col-md-auto d-block btn btn-link comment-edit-button" href="" style="" onclick="toggleEditing(this)">
+          수정
+        </button>
+        <form class="col-md-auto" action="/comment/<%=comment._id%>?_method=DELETE" method="post"> 
+          <button class="btn btn-link" type="submit" style="color: red;">
+            삭제
+          </button>
+        </form>
+        <% } %>
+    <% } %>
+    </div>
+  </div>
+</div>

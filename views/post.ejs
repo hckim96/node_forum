@@ -36,14 +36,16 @@
             </h2>
             <div class="media">
               <div class="avatar">
-                <img src="/asset/defaultProfile.png" title="" alt="">
+                <a href="/profile/<%=post.author.id%>"><img src="/asset/defaultProfile.png" title="" alt=""></a> 
               </div>
               <div class="media-body">
                 <div class="row">
 
                   <div class="col">
                     <label>
-                      <%= post.author.id %>
+                        <a href="/profile/<%=post.author.id%>" style="color: inherit;">
+                        <%= post.author.id %>
+                        </a>
                     </label>
                     <span>
                       <!-- <%= post.createdAt %> -->
@@ -128,11 +130,14 @@
           <div class="comment-write-part">
             <% var commentCnt = post.commentList?.length ?? 0; 
                 if (post.commentList) 
-                  for (var comment of post.commentList) commentCnt += comment.commentList?.length ?? 0;
+                  for (var comment of post.commentList) {
+                    if (comment.deleted) commentCnt--;
+                    commentCnt += comment.commentList?.length ?? 0;
+                  }
             %>
             <h4> <%=commentCnt%>개의 댓글</h4>
-            <form action="/comments" method="post">
-              <textarea class="w-100 p-2 font-large" placeholder="댓글을 작성하세요" style="height: 10rem;" name="body"></textarea>
+            <form action="/comment" method="post">
+              <textarea class="w-100 p-2 font-large" placeholder="댓글을 작성하세요" style="height: 10rem;" name="body" required=""></textarea>
               <input hidden="" name="parentModel" value="Post">
               <div class="d-flex justify-content-end my-1">
                 <button class="btn btn-primary" type="submit" name="parent" value="<%=post._id%>">댓글 작성</button>
@@ -147,15 +152,9 @@
           </div>
 
         </div>
-
-
-
       </div>
-
     </div>
-
 </body>
-
 </html>
 
 <!------ Include the above in your HEAD tag ---------->

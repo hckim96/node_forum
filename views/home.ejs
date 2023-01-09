@@ -33,13 +33,13 @@
         <th class= 'px-1' scope="col" style="width: 3rem;">#</th>
         <th class= 'px-1' scope="col" style="" >제목</th>
         <th class= 'px-0' scope="col" style="width: 3rem;">
-            조회수
-        </th>
-        <th class= 'px-0' scope="col" style="width: 3rem;">
             작성자
         </th>
         <th class= 'px-0' scope="col" style="width: 3.5rem;">
             작성일
+        </th>
+        <th class= 'px-0' scope="col" style="width: 3rem;">
+          조회수
         </th>
       </tr>
     </thead>
@@ -57,17 +57,12 @@
               <% var commentCnt = posts[i].commentList?.length ?? 0; 
                 if (posts[i].commentList) 
                   for (var comment of posts[i].commentList) {
+                    if (comment.deleted) commentCnt--;
                     commentCnt += comment.commentList?.length ?? 0;
                   }
               %>
               [<%= commentCnt %>]
             </span>
-        </td>
-        <!-- view -->
-        <td class="px-0" style="">
-          <small>
-            <%= posts[i].view ? posts[i].view : 0 %>
-          </small>
         </td>
         <!-- author -->
         <td class="px-0" style="">
@@ -79,6 +74,12 @@
         <td class="px-0" style="">
           <small data-toggle="tooltip" title="<%= moment(posts[i].createdAt).format('llll') %>">
             <%= moment(posts[i].createdAt).fromNow() %>
+          </small>
+        </td>
+        <!-- view -->
+        <td class="px-0" style="">
+          <small>
+            <%= posts[i].view ? posts[i].view : 0 %>
           </small>
         </td>
       </tr>
