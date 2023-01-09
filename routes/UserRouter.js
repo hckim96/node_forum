@@ -4,6 +4,7 @@ const User = require('../models/User')
 
 module.exports = function(passport) {
   router.get('/login', (req, res) => {
+    req.session.redirectUrl = req.get('referer');
     // res.send('GET request to the homepage')
     res.render('login');
   })
@@ -15,6 +16,7 @@ module.exports = function(passport) {
   router.post('/login', function(req, res, next) {
     const { id, password } = req.body;
 
+    console.log(`[POST] /login, req.session.redirectUrl:${req.session.redirectUrl}`)
     passport.authenticate('local-login', {
       successRedirect: req.session.redirectUrl ?? '/',
       failureRedirect: req.originalUrl,
