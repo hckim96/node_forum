@@ -1,13 +1,10 @@
 <style type="text/css">
-  .comment {
-    border-bottom: 1px solid #f1f3f5;
-
-  }
+  
 </style>
 <script>
   const toggleEditing = function(elem) {
     $(elem).parents('.comment:first').find('.comment-editing:first').toggleClass('d-none')
-    $(elem).parents('.comment:first').find('.comment-not-editing:first').toggleClass('d-none')
+    $(elem).parents('.comment:first').find('.comment-not-editing').toggleClass('d-none')
     $(elem).parents('.comment:first').find('.comment-edit-button:first').toggleClass('d-none')
     $(elem).parents('.comment:first').find('textarea:first').text(<%=comment.body%>)
   }
@@ -19,8 +16,9 @@
     <%- include('comment-profile-part.ejs', {comment: comment}) %>
   </div>
   <%- include('comment-middle-part.ejs', {comment: comment}) %>
+  
   <div class="comment-bottom-part">
-    <button type="button" class="btn btn-link pl-0 pb-0" style="text-decoration: none;" data-toggle="collapse" data-target="#collapseExample<%=idx%>" aria-expanded="false" aria-controls="collapseExample">
+    <button id="ttmp" type="button" class="btn btn-link pl-0 pb-0" style="text-decoration: none;" data-toggle="collapse" data-target="#collapseExample<%=idx%>" aria-expanded="false" aria-controls="collapseExample">
       <svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path fill="currentColor" d="M5.5 2.5h1v3h3v1h-3v3h-1v-3h-3v-1h3v-3z"></path><path fill="currentColor" fill-rule="evenodd" d="M1 0a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm10 1H1v10h10V1z" clip-rule="evenodd"></path></svg>
       <span>
         <% if (comment.commentList?.length > 0) { %>
@@ -30,6 +28,7 @@
         <% }%>
       </span>
     </button>
+    
     <div class="collapse p-3 " style="background-color: #F8F9FA;" id="collapseExample<%=idx%>">
 
       <!-- 대댓글 작성하기 -->
@@ -40,5 +39,6 @@
         <%- include('nested-comment-content-part.ejs', {comment: comment.commentList[index], idx: index}) %>
       <% } %>
     </div>
+    
   </div>
 </div>

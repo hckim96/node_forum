@@ -3,14 +3,18 @@
     <% if (comment.deleted) { %>
      <i class="font-lg" style="font-size: medium;">삭제된 댓글입니다.</i>
     <% } else {%>
-      <%= comment.body %>
+      <% for (const line of comment.body.split("\n")) { %>
+        <p  class="comment-not-editing"><%= line %></p>
+      <% } %>
     <% } %>
   </p>
   <div class="comment-editing d-none">
-    <textarea class="w-100" style="height:10rem;" required=""><%=comment.body%></textarea>
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-link" onclick="toggleEditing(this)"> 취소 </button>
-      <button class="btn btn-primary"> 댓글 수정 </button>
-    </div>
+    <form action="/comment/<%=comment._id%>" method="POST">
+      <textarea class="w-100" style="height:10rem;" required="" name="body" required=""><%=comment.body%></textarea>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-link" onclick="toggleEditing(this)" type="button"> 취소 </button>
+        <button class="btn btn-primary" type="submit"> 댓글 수정 </button>
+      </div>
+    </form>
   </div>
 </div>

@@ -47,17 +47,18 @@ router.get('/post/:postId', (req, res) => {
 // post  // edit post that has postId
 router.post('/post/:postId', (req, res) => {
   const {title, body} = req.body;
+  console.log(`[POST] /post/${req.params.postId} : edit post`)
+  console.log(`title: ${title}, body: ${body}`)
 
   if (!title && !body) {
-    res.json({"err": "no fields"})
-    return;
+    return res.json({"err": "no fields"});
   }
 
   Post.updateOne({id: req.params.postId}, {$set: {title: title, body: body}}, {timestamps: {createdAt: false}}, (err, resp) => {
     if (err) {
       res.json(err);
     } else {
-      console.log(f`[POST]  post update succeded: ${req.params.postId}`);
+      console.log(`[POST]  post update succeded: ${req.params.postId}`);
       res.redirect(`/post/${req.params.postId}`)
     }
   })

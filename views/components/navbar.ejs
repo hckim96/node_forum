@@ -12,46 +12,20 @@
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <!-- <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li> -->
       </ul>
       <form class="form-inline my-2 my-lg-0 mr-5" method="get" action="/">
         <input class="form-control mr-sm-2" type="q" placeholder="글 제목으로 검색..." aria-label="Search" name="q">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="">검색</button>
       </form>
       <% if (isLoggedIn) { %>
-        <!-- <img src="..." alt="..." class="rounded-circle"> -->
-        <!-- <span class = "ml-2">welcome 
-          <a href="/profile/<%= userId %>" style="">
-          <%= userId %>
-          </a> 
-        </span> -->
           <div class="mx-2"  style="max-width: 3rem;">
-            <a href="/profile/<%=userId%>">
+            <a class="d-flex flex-column" href="/profile/<%=userId%>">
               <img src="/asset/defaultProfile.png" class="img" alt="" >
+              <span class="font-bold font-italic" style="text-align: center; color: black;">
+                <%= userId %>
+              </span>
             </a>
           </div>
-        <span class="font-bold font-italic pr-2">
-          <%= userId %>
-        </span>
 
 
         <a class="btn btn-outline-primary m-1" href="/logout">로그아웃</a>

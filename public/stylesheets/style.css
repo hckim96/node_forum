@@ -450,3 +450,11 @@ img {
     transform: rotate(45deg);
 }
 
+
+.comment {
+    border-bottom: 1px solid #f1f3f5;
+}
+/* my */
+.comment:last-child {
+  border-bottom: none;
+}

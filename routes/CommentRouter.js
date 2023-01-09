@@ -79,7 +79,7 @@ router.post('/comment/:comment_id', (req,res) => {
     (err, doc) => {
       if (err) return res.json(err);
       // check user is the author of this comment
-      if (req.user?._id != doc.author) return res.json({"err": "user is not the author of this comment"})
+      if (!doc.author.equals(req.user?._id)) return res.json({"err": "user is not the author of this comment"})
       console.log(`comment(${comment_id}) updated  ${doc.body} -> ${body}`)
       res.redirect(req.get('referer') ?? '/')
     }
