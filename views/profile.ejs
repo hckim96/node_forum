@@ -1,45 +1,105 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Profile</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <%- include('components/common-head.ejs', {pageTitle: '프로필'})  %> 
   </head>
   <body>
     <%- include('components/navbar.ejs')  %> 
     <div class="container">
-        <div class="card text-left">
-          <img class="card-img-top" src="holder.js/100px180/" alt="">
-          <div class="card-body">
+        <div class="card text-left my-3">
+          <!-- 배경 사진 -->
+          <!-- <img class="card-img-top" src="holder.js/100px180/" alt=""> -->
+
+          <div class="col card-body">
+            
+            <!-- 사진, 이름, 설명 행 -->
             <div class="row">
-
-                <div class="col-3">
-                    <img src="/asset/defaultProfile.png" class="img-fluid d-sm" alt="">
+                <div class="col" style="border-right: 0.5px solid lightgray; max-width: fit-content; justify-content: center;" >
+                    <div class="row justify-content-center mx-1" style="width: fit-content;">
+                      <img src="/asset/defaultProfile.png" class="rounded-circle" alt="" style="object-fit: cover; width: 6rem;">
+                    </div>
+                    <div class="col justify-content-center mt-3 ttmp" style="">
+                      <form action="/user-thumbnail?_method=PUT" method="post">
+                        <label for="uploadFile" type="button" class="col btn btn-primary p-1 profile-img-upload-button mb-0" style="min-width: 5rem; width: fit-content; font-size: .8rem; ">
+                          사진 업로드
+                        </label>
+                        <input type="file" id="uploadFile" accept="*.png" name="uploadFile">
+                      </form>
+                    </div>
+                    <div class="col justify-content-center mt-3" style="">
+                      <button type="button" class="col btn btn-primary p-1 " style="min-width: 5rem; width: fit-content; font-size: .8rem; " onclick="(() => {
+                        console.log('사진 제거하기 버튼')
+                        })()">
+                        사진 제거하기
+                      </button>
+                    </div>
                 </div>
+                <script>
+                  $(document).ready(function () {
+                    $("#uploadFile").on('change',function(){
+                    console.log(`uploadFile changed`);
+                    console.log(`$("#uploadFile").val(): ${$("#uploadFile").val()}`)
+                    // console.dir(this.parentElement.submit())
+                    });
+                  })
+                  
+                </script>
+                <!-- 위 오른쪽 부분 -->
                 <div class="col">
-                    <h4 class="card-title"><%= user.id %></h4>
-                    <br>
-                    <p class="card-title"><%= user.description%></p>
+                  <h1 class=""><%= user.id %></h1>
+
+                  <br>
+                  
+                  <p class="profile-user-description-not-editing  my-4" style="font-size: 1rem;">
+                    <%= user.description ?? '기본 설명'%>
+                  </p>
+
+                  <form action="/api/user" method="post" class="form-group profile-user-description-editing d-none justify-content-end">
+                    <input type="text" required
+                      class="form-control" name="description" id="description" aria-describedby="helpId" placeholder="설명을 입력해주세요.">
+                    <button type="submit" class="btn btn-sm btn-primary profile-user-description-editing float-right my-3">저장하기</button>
+                    <button type="button" class="btn btn-sm btn-link profile-user-description-editing float-right my-3 mr-1" onclick="((elem) => {
+                      $(elem).parent().parent().children('.profile-user-description-not-editing').toggleClass('d-none')
+                      $(elem).parent().parent().children('.profile-user-description-editing').toggleClass('d-none')
+                      })(this)">취소</button>
+                  </form>
+
+                  <button class="btn btn-sm btn-link p-0 profile-user-description-not-editing" onclick="((elem) => {
+                    $(elem).parent().children('.profile-user-description-not-editing').toggleClass('d-none')
+                    $(elem).parent().children('.profile-user-description-editing').toggleClass('d-none')
+                    })(this)">수정</button>
+
+                </div>
+              </div>
+            </div> 
+
+            
+
+            <div class="my-5"></div>
+            
+            <!-- 밑에 파트 부분 행 -->
+            <% for( let index = 0; index < 5; index++ ) { %>
+              <div class="my-2 profile-row-item my-row-item">
+                <div class="col w-100">
+                  <div class="row">
+                    <h5 class="col" style="max-width: 33%;">회원 탈퇴</h5>
+                    <form action="/user?_method=DELETE" method="post">
+                    <h3 class="col"> <button class="btn btn-danger">회원 탈퇴</button> </h3>
+                    </form>
+                  </div>
+                  <div class="row text-muted">
+                    <div class="col">
+                      탈퇴 시 작성한 글, 댓글이 모두 삭제됩니다.
+                    </div>
+                  </div>
                 </div>
             </div>
+            <% } %>
 
-            <!-- <div class="d-block w-25 p-3 ">
-
-            </div>
-            <p class="card-text">Body</p> -->
-
+            
+            
           </div>
         </div>
-
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
