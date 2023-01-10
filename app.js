@@ -3,18 +3,21 @@ const app = express()
 const passport = require('passport');
 const flash = require('connect-flash');
 
+require('dotenv').config()
 
-// const livereload = require('livereload')
-// const livereloadMiddleware = require('connect-livereload')
-// // 라이브 서버 설정
-// const liveServer = livereload.createServer({
-//   // 변경시 다시 로드할 파일 확장자들 설정
-//   exts: ['html', 'css', 'ejs'],
-//   debug: false,
-// });
-// liveServer.watch(__dirname);
-// app.use(livereloadMiddleware());
-
+if (process.env.LOCAL) {
+  console.log(`in app.js: process.env.LOCAL: ${process.env.LOCAL}`);
+  const livereload = require('livereload')
+  const livereloadMiddleware = require('connect-livereload')
+  // 라이브 서버 설정
+  const liveServer = livereload.createServer({
+    // 변경시 다시 로드할 파일 확장자들 설정
+    exts: ['html', 'css', 'ejs'],
+    debug: false,
+  });
+  liveServer.watch(__dirname);
+  app.use(livereloadMiddleware());
+}
 
 
 // for delete or put method
@@ -25,7 +28,6 @@ app.set('views', './views');
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public/'));
 
-require('dotenv').config()
 // process.env.
 
 const bodyParser = require('body-parser');
