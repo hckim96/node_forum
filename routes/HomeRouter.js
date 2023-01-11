@@ -51,6 +51,7 @@ router.get('/', (req, res) => {
                 userId: req.user?.id ,
                 currentPage: page,
                 totalPages: Math.ceil(count / limit),
+                user: req.user,
               });
             }
           })

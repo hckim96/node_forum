@@ -39,7 +39,7 @@ router.get('/post/:postId', (req, res) => {
           res.json({"err": `post ${req.params.postId} not exists`})
         } else {
           console.log(`[GET] single post, ${req.params.postId}`);
-          res.render('post', {post: post, isLoggedIn: req.isAuthenticated(), userId: req.user?.id})
+          res.render('post', {post: post, isLoggedIn: req.isAuthenticated(), userId: req.user?.id, user: req.user})
         }
   });
 })

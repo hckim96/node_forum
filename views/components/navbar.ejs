@@ -20,7 +20,11 @@
       <% if (isLoggedIn) { %>
           <div class="mx-2"  style="max-width: 3rem;">
             <a class="d-flex flex-column" href="/profile/<%=userId%>">
-              <img src="/asset/defaultProfile.png" class="img" alt="" >
+              <% if (user?.thumbnailUrl) { %>
+                <img src=<%=user?.thumbnailUrl ?? "/asset/defaultProfile.png" %> class="img rounded-circle" alt="" onerror="((elem) => {elem.src='/asset/defaultProfile.png'})(this)">
+                <% } else {%>
+                <img src="/asset/defaultProfile.png" class="img rounded-circle" alt="">
+              <% }%>
               <span class="font-bold font-italic" style="text-align: center; color: black;">
                 <%= userId %>
               </span>

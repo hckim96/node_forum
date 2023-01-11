@@ -29,7 +29,7 @@
 </head>
 
 <body  class="mx-auto b-5" style="">
-  <%- include('components/navbar.ejs') %>
+  <%- include('components/navbar.ejs', {"user": locals.user ?? null}) %>
 
   <div class="row justify-content-center" style="padding : 3% 5vw 0% 5vw; max-width: 1920px; margin: auto;">
       <div class=" m-auto" style="width: 100%;">
@@ -43,7 +43,12 @@
             </h2>
             <div class="d-flex flex-column" style="  padding-top: 15px; border-bottom: 1px dashed #ddd; padding-bottom: 20px;">
               <div class="d-flex">
-                <a href="/profile/<%=post.author.id%>"><img src="/asset/defaultProfile.png" title="" alt="" style="width: 3rem;"></a> 
+                <% if (post.author.thumbnailUrl) { %>
+                  <a href="/profile/<%=post.author.id%>"><img src=<%=post.author.thumbnailUrl ?? "/asset/defaultProfile.png" %> class="rounded-circle" title="" alt="" style="width: 3rem;" onerror="((elem) => {elem.src='/asset/defaultProfile.png'})(this)"></a> 
+                  <% } else {%>
+                  <a href="/profile/<%=post.author.id%>"><img src="/asset/defaultProfile.png" class="rounded-circle" title="" alt="" style="width: 3rem;"></a> 
+                <% }%>
+  
                 <div class="ml-2">
                   <label class="m-0">
                       <a href="/profile/<%=post.author.id%>" style="color: #fc5356; font-weight: bold;">

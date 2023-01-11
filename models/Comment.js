@@ -1,5 +1,4 @@
 const mongoose  = require("mongoose")
-const AutoIncrement  = require("mongoose-sequence")(mongoose)
 
 const commentSchema = new mongoose.Schema({
   body: {

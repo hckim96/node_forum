@@ -1,6 +1,11 @@
 <div class="comment-profile-part d-flex justify-content-between">
   <div class="d-flex">
-  <a href="/profile/<%=comment.deleted ? '알 수 없음' : comment.author.id%>"><img class="" style="width: 3.5rem;" src="/asset/defaultProfile.png" alt=""></a>
+    <% if (comment.author?.thumbnailUrl) { %>
+      <a href="/profile/<%=comment.deleted ? '알 수 없음' : comment.author.id%>"><img class="rounded-circle" style="width: 3.5rem;" src=<%=comment.author?.thumbnailUrl ?? "/asset/defaultProfile.png" %> alt="" onerror="((elem) => {elem.src='/asset/defaultProfile.png'})(this)"></a>
+      <% } else {%>
+      <a href="/profile/<%=comment.deleted ? '알 수 없음' : comment.author.id%>"><img class="rounded-circle" style="width: 3.5rem;" src="/asset/defaultProfile.png" alt=""></a>
+    <% }%>
+
   <div class=" ml-2">
     <a href="/profile/<%=comment.deleted ? '알 수 없음' : comment.author.id%>" style="color: black;" >
       <strong>

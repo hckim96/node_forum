@@ -4,7 +4,7 @@
     <%- include('components/common-head.ejs', {pageTitle: '프로필'})  %> 
   </head>
   <body>
-    <%- include('components/navbar.ejs')  %> 
+    <%- include('components/navbar.ejs', {"user": locals.user ?? null})  %> 
     <div class="container">
         <div class="card text-left my-3">
           <!-- 배경 사진 -->
@@ -16,14 +16,18 @@
             <div class="row">
                 <div class="col" style="border-right: 0.5px solid lightgray; max-width: fit-content; justify-content: center;" >
                     <div class="row justify-content-center mx-1" style="width: fit-content;">
-                      <img src="/asset/defaultProfile.png" class="rounded-circle" alt="" style="object-fit: cover; width: 6rem;">
+                      <% if (user?.thumbnailUrl) { %>
+                        <img src=<%=user?.thumbnailUrl ?? "/asset/defaultProfile.png" %> class="rounded-circle" alt="" style="object-fit: cover; width: 6rem;" onerror="((elem) => {elem.src='/asset/defaultProfile.png'})(this)">
+                        <% } else {%>
+                        <img src="/asset/defaultProfile.png" class="rounded-circle" alt="" style="object-fit: cover; width: 6rem;">
+                      <% }%>
                     </div>
                     <div class="col justify-content-center mt-3 ttmp" style="">
-                      <form action="/user-thumbnail?_method=PUT" method="post">
+                      <form action="/user-thumbnail" method="post" enctype="multipart/form-data">
                         <label for="uploadFile" type="button" class="col btn btn-primary p-1 profile-img-upload-button mb-0" style="min-width: 5rem; width: fit-content; font-size: .8rem; ">
                           사진 업로드
                         </label>
-                        <input type="file" id="uploadFile" accept="*.png" name="uploadFile">
+                        <input type="file" id="uploadFile" accept="image/png, image/jpeg, image/jpg" name="userThumbnail">
                       </form>
                     </div>
                     <div class="col justify-content-center mt-3" style="">
@@ -39,6 +43,7 @@
                     $("#uploadFile").on('change',function(){
                     console.log(`uploadFile changed`);
                     console.log(`$("#uploadFile").val(): ${$("#uploadFile").val()}`)
+                    this.parentElement.submit();
                     // console.dir(this.parentElement.submit())
                     });
                   })

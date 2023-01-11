@@ -5,6 +5,7 @@ module.exports = function (router, passport) {
   const PostRouter = require("./PostRouter");
   const UserRouter = require("./UserRouter")(passport);
   const CommentRouter = require("./CommentRouter");
+  const UserThumbnailRouter = require("./UserThumbnailRouter");
   //
   require('dotenv').config()
   // this is the setup for development
@@ -32,6 +33,7 @@ module.exports = function (router, passport) {
   router.use('/', UserRouter);
   router.use('/', CommentRouter);
   router.use('/', PostRouter);
+  router.use('/', UserThumbnailRouter);
 }
 
 
