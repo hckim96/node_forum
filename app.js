@@ -53,8 +53,11 @@ require('./routes')(routes, passport);
 app.use(routes);
 
 var moment = require('moment');
-// moment.locale('en');
+require('moment-timezone');
+moment.tz.setDefault("Asia/Seoul");
 moment.locale('ko');
+console.log('[moment]: moment().format("YYYY-MM-DD HH:mm:ss") :>> ', moment().format("YYYY-MM-DD HH:mm:ss"));
+
 var shortDateFormat = "ddd @ h:mmA"; // this is just an example of storing a date format once so you can change it in one place and have it propagate
 app.locals.moment = moment; // this makes moment available as a variable in every EJS page
 app.locals.shortDateFormat = shortDateFormat;
